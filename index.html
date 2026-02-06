@@ -127,11 +127,9 @@
 <body>
 
     <!-- 🎵 Background Music -->
-    <audio id="bg-music" autoplay loop>
-        <source
-            src="https://archive.org/download/PNWBMF/Can%27t%20Help%20Falling%20In%20Love%20-%20Elvis%20Presley%20%28Cover%20by%20Alexander%20Stewart%29.mp3"
-            type="audio/mpeg">
-    </audio>
+    <audio id="bg-music"
+        src="https://archive.org/download/PNWBMF/Can%27t%20Help%20Falling%20In%20Love%20-%20Elvis%20Presley%20%28Cover%20by%20Alexander%20Stewart%29.mp3"
+        loop preload="auto"></audio>
 
     <!-- 🌹 Falling Roses -->
     <img class="rose" src="rose.png" style="left:5%; animation-duration: 7s; width: 40px;">
@@ -170,24 +168,27 @@
 
         setTimeout(typeWriter, 2000);
 
-        // Auto-play workaround for browsers
-        function startMusic() {
-            const music = document.getElementById('bg-music');
-            music.play().catch(() => {
-                // Autoplay blocked, wait for interaction
-                const playOnStateChange = () => {
-                    music.play();
-                    document.removeEventListener('click', playOnStateChange);
-                    document.removeEventListener('scroll', playOnStateChange);
-                    document.removeEventListener('touchstart', playOnStateChange);
-                };
-                document.addEventListener('click', playOnStateChange);
-                document.addEventListener('scroll', playOnStateChange);
-                document.addEventListener('touchstart', playOnStateChange);
+        // Enhanced Auto-play for all browsers/devices
+        const music = document.getElementById('bg-music');
+
+        function playMusic() {
+            music.play().then(() => {
+                // Success! Remove all listeners
+                ['click', 'scroll', 'touchstart', 'keydown'].forEach(event => {
+                    document.removeEventListener(event, playMusic);
+                });
+            }).catch(error => {
+                console.log("Autoplay blocked, waiting for interaction.");
             });
         }
 
-        window.addEventListener('load', startMusic);
+        // Try to play on load
+        window.addEventListener('load', playMusic);
+
+        // Add listeners for any user interaction
+        ['click', 'scroll', 'touchstart', 'keydown'].forEach(event => {
+            document.addEventListener(event, playMusic, { once: true });
+        });
     </script>
 
 </body>
