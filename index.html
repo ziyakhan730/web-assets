@@ -127,8 +127,10 @@
 <body>
 
     <!-- 🎵 Background Music -->
-    <audio autoplay loop>
-        <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8f7c98b4b0.mp3" type="audio/mpeg">
+    <audio id="bg-music" autoplay loop>
+        <source
+            src="https://archive.org/download/PNWBMF/Can%27t%20Help%20Falling%20In%20Love%20-%20Elvis%20Presley%20%28Cover%20by%20Alexander%20Stewart%29.mp3"
+            type="audio/mpeg">
     </audio>
 
     <!-- 🌹 Falling Roses -->
@@ -167,6 +169,25 @@
         }
 
         setTimeout(typeWriter, 2000);
+
+        // Auto-play workaround for browsers
+        function startMusic() {
+            const music = document.getElementById('bg-music');
+            music.play().catch(() => {
+                // Autoplay blocked, wait for interaction
+                const playOnStateChange = () => {
+                    music.play();
+                    document.removeEventListener('click', playOnStateChange);
+                    document.removeEventListener('scroll', playOnStateChange);
+                    document.removeEventListener('touchstart', playOnStateChange);
+                };
+                document.addEventListener('click', playOnStateChange);
+                document.addEventListener('scroll', playOnStateChange);
+                document.addEventListener('touchstart', playOnStateChange);
+            });
+        }
+
+        window.addEventListener('load', startMusic);
     </script>
 
 </body>
