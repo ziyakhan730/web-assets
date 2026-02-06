@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Rose Day Farheen 🌹</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #ff5f6d, #ffc371);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        /* Center Content */
+        .container {
+            text-align: center;
+            padding: 20px;
+            z-index: 5;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            text-shadow: 0 0 15px #ff003c;
+            animation: glow 2s infinite alternate;
+        }
+
+        .name {
+            font-size: 3.5rem;
+            margin-top: 10px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            animation: zoomIn 2.5s ease;
+        }
+
+        #typewriter {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            min-height: 80px;
+        }
+
+        .from {
+            margin-top: 25px;
+            font-size: 1.1rem;
+            opacity: 0;
+            animation: fadeIn 2s ease forwards;
+            animation-delay: 6s;
+        }
+
+        /* Falling Roses */
+        .rose {
+            position: absolute;
+            top: -80px;
+            width: 50px;
+            animation: fall linear infinite;
+            opacity: 0.9;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+
+        /* Animations */
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px white;
+            }
+
+            to {
+                text-shadow: 0 0 30px red;
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Mobile Perfect */
+        @media(max-width: 600px) {
+            .title {
+                font-size: 2rem;
+            }
+
+            .name {
+                font-size: 2.8rem;
+            }
+
+            #typewriter {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 🎵 Background Music -->
+    <audio autoplay loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8f7c98b4b0.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- 🌹 Falling Roses -->
+    <img class="rose" src="rose.png" style="left:5%; animation-duration: 7s; width: 40px;">
+    <img class="rose" src="rose.png" style="left:15%; animation-duration: 9s; width: 50px; animation-delay: 1s;">
+    <img class="rose" src="rose.png" style="left:30%; animation-duration: 8s; width: 45px; animation-delay: 2s;">
+    <img class="rose" src="rose.png" style="left:45%; animation-duration: 11s; width: 55px; animation-delay: 0.5s;">
+    <img class="rose" src="rose.png" style="left:60%; animation-duration: 10s; width: 40px; animation-delay: 1.5s;">
+    <img class="rose" src="rose.png" style="left:75%; animation-duration: 8.5s; width: 50px; animation-delay: 2.5s;">
+    <img class="rose" src="rose.png" style="left:90%; animation-duration: 7.5s; width: 45px; animation-delay: 1s;">
+    <img class="rose" src="rose.png" style="left:10%; animation-duration: 12s; width: 35px; animation-delay: 3s;">
+    <img class="rose" src="rose.png" style="left:85%; animation-duration: 10.5s; width: 42px; animation-delay: 4s;">
+
+    <!-- ❤️ Content -->
+    <div class="container">
+        <div class="title">Happy Rose Day</div>
+        <div class="name">FARHEEN</div>
+
+        <div id="typewriter"></div>
+
+        <div class="from">From your husband ❤️ Ziya</div>
+    </div>
+
+    <script>
+        const text = "Every rose reminds me of you.\nYour love colors my world with happiness.\nYou are my today, my tomorrow, my forever ❤️";
+        let index = 0;
+        const speed = 50;
+
+        function typeWriter() {
+            if (index < text.length) {
+                document.getElementById("typewriter").innerHTML +=
+                    text.charAt(index) === "\n" ? "<br>" : text.charAt(index);
+                index++;
+                setTimeout(typeWriter, speed);
+            }
+        }
+
+        setTimeout(typeWriter, 2000);
+    </script>
+
+</body>
+
+</html>
